@@ -1,6 +1,3 @@
-# contour-detection
-Detect and draw contours..for any object of any color
-
 ## 1.colourtrack.py
 This file is used to find the hsv range of any  color object using trackbars.
 First run this code , and adjust the trackbars to find the range of hsv values .
