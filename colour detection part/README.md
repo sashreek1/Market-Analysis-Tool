@@ -18,6 +18,8 @@ Count and update the value of number of blue objects in the frame
 ## 5.final.py
 First change the hsv values manually in this code for different colour objects, for a particular setup(light conditions).
 Next run this code , to detect the objects with its count.
+
+NOTE: you can get the hsv values for a particular color by adjusting the sliders in colourtrack.py code
  
 ## few screenshots
 ![2](https://user-images.githubusercontent.com/34301506/47454714-8138bb80-d7ed-11e8-90c1-3ca6ac4f5285.png)
