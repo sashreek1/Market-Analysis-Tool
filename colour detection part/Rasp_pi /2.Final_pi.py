@@ -1,16 +1,32 @@
+# import the necessary packages
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+import time
+
 import cv2
 import numpy as np
+# initialize the camera and grab a reference to the raw camera capture
+resx,resy=640,480
+camera = PiCamera()
+camera.resolution = (resx,resy)
+camera.framerate = 40
+rawCapture = PiRGBArray(camera, size=(resx,resy))
+# allow the camera to warmup
+time.sleep(0.1)
 
-cap=cv2.VideoCapture(0)
 
 #initialization
 c_blue=c_red=c_green=c_orange=c_yellow=0
-
-area_low=1000
+area_low=resx*resy/100
 area_high=20000
 
-while True:
-    _,frame=cap.read()
+# capture frames from the camera
+for img in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+    # grab the raw NumPy array representing the image, then initialize the timestamp
+    # and occupied/unoccupied text
+    frame = img.array
+    
+    #_,frame=cap.read()
     hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     font = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -124,9 +140,11 @@ while True:
    
 
     cv2.imshow("frame",frame)
-
+    
+    # clear the stream in preparation for the next frame
+    rawCapture.truncate(0)
+    
     if cv2.waitKey(1)==27:#press esc to exit
         break;
 
-cap.release()
 cv2.destroyAllWindows()
