@@ -1,3 +1,7 @@
+# In this code objects of different colours  are counted and values updated
+# The count of each object is stored in the my_inventory dictionary .
+
+
 # import the necessary packages
 from picamera.array import PiRGBArray
 from picamera import PiCamera
@@ -17,6 +21,9 @@ time.sleep(0.1)
 
 #initialization
 c_blue=c_red=c_green=c_orange=c_yellow=0
+my_inventory= {'c_blue': 0, 'c_red': 0,'c_green': 0, 'c_orange': 0,'c_yellow': 0}
+
+#update these 2 values to change the range of size of the object being detected
 area_low=resx*resy/100
 area_high=20000
 
@@ -49,7 +56,8 @@ for img in camera.capture_continuous(rawCapture, format="bgr", use_video_port=Tr
             cv2.drawContours(frame,[approx],0,(255,0,0),3)
             cv2.putText(frame,str(c_blue),(x,y), font, 2,(255,0,0),2,cv2.LINE_AA)
     cv2.putText(frame,'B='+str(c_blue),(50,50), font, 1,(255,0,0),2,cv2.LINE_AA)
-    
+    my_inventory["c_blue"]=c_blue    
+
 
     #Red
     low_red=np.array([131,92,83])
@@ -71,7 +79,7 @@ for img in camera.capture_continuous(rawCapture, format="bgr", use_video_port=Tr
             cv2.drawContours(frame,[approx],0,(0,0,255),3)
             cv2.putText(frame,str(c_red),(x,y), font, 2,(0,0,255),2,cv2.LINE_AA)
     cv2.putText(frame,'R='+str(c_red),(50,80), font, 1,(0,0,255),2,cv2.LINE_AA)
-    
+    my_inventory["c_red"]=c_red    
    
     #Green
         
@@ -94,7 +102,8 @@ for img in camera.capture_continuous(rawCapture, format="bgr", use_video_port=Tr
             cv2.drawContours(frame,[approx],-1,(0,255,0),3)
             cv2.putText(frame,str(c_green),(x,y), font, 2,(0,255,0),2,cv2.LINE_AA)       
     cv2.putText(frame,'G='+str(c_green),(50,110), font, 1,(0,255,0),2,cv2.LINE_AA)
-   
+    my_inventory["c_green"]=c_green    
+
     #orange
     
     low_or=np.array([0,89,99])
@@ -115,6 +124,7 @@ for img in camera.capture_continuous(rawCapture, format="bgr", use_video_port=Tr
             cv2.drawContours(frame,[approx],-1,(0,140,255),3)
             cv2.putText(frame,str(c_orange),(x,y), font, 2,(0,140,255),2,cv2.LINE_AA)       
     cv2.putText(frame,'O='+str(c_orange),(50,140), font, 1,(0,140,255),2,cv2.LINE_AA)
+    my_inventory["c_orange"]=c_orange    
    
     #yellow
     
@@ -137,8 +147,9 @@ for img in camera.capture_continuous(rawCapture, format="bgr", use_video_port=Tr
             cv2.drawContours(frame,[approx],-1,(0,215,255),3)
             cv2.putText(frame,str(c_yellow),(x,y), font, 2,(0,215,255),2,cv2.LINE_AA)       
     cv2.putText(frame,'Y='+str(c_yellow),(50,170), font, 1,(0,215,255),2,cv2.LINE_AA)
-   
+    my_inventory["c_yellow"]=c_yellow 
 
+    print(my_inventory)
     cv2.imshow("frame",frame)
     
     # clear the stream in preparation for the next frame
