@@ -1,4 +1,5 @@
 import Final
-ls={}
-Final.GetValues(ls)
-print(ls)
+while 1:
+    ls={}
+    Final.GetValues(ls)
+    print(ls)
