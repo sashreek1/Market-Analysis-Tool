@@ -151,14 +151,11 @@ def GetValues(my_inventory):
         cv2.putText(frame,'Y='+str(c_yellow),(50,170), font, 1,(0,215,255),2,cv2.LINE_AA)
         my_inventory["c_yellow"]=c_yellow 
 
-##        print(my_inventory)
-##        cv2.imshow("frame",frame)
+        cv2.imshow("frame",frame)
         
         # clear the stream in preparation for the next frame
         rawCapture.truncate(0)
-        return my_inventory
 
-        if cv2.waitKey(1)==27:#press esc to exit
-            break;
+        return cv2.waitKey(1)==27
 
-    cv2.destroyAllWindows()
+    
