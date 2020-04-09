@@ -156,6 +156,6 @@ def GetValues(my_inventory):
         # clear the stream in preparation for the next frame
         rawCapture.truncate(0)
 
-        return cv2.waitKey(1)==27
+        return cv2.waitKey(1)
 
     
