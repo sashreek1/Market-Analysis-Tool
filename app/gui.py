@@ -2,7 +2,9 @@ from tkinter import *
 from tkinter.ttk import *
 import tkinter.font as tkFont
 import time
-
+from detect_colours import detect_colour
+from sendmsg import send_data
+from sendmsg import get_data
 
 def hello():  
     """Place holder function"""
@@ -19,6 +21,7 @@ class app():
         self.app_length = int(0.5*self.height)
         self.root.geometry(str(self.app_width)+"x"+str(self.app_length))
         self.root.title("Market Analysis")
+        self.colour_count = {}
         self.create()  
 
     def Analytics_page(self):
@@ -30,7 +33,7 @@ class app():
         canvas.create_line(0, 0.20*self.app_length, self.app_width, 0.20*self.app_length)  
         canvas.pack(fill = BOTH, expand = True)
         
-        a = Button(analytics_page,text="Start Shelf Cam", command=self.product_info_entry)
+        a = Button(analytics_page,text="Start Shelf Cam", command=lambda: detect_colour(self.product_info_entry, self.colour_count))
         a.place(relx=0.5, rely=0.25, anchor=CENTER)
         
         button_desc_a = Label(analytics_page, text="Select this button to begin looking for specified objects on the shelf")
@@ -51,6 +54,25 @@ class app():
         analytics_page.mainloop()
 
     def product_info_entry(self):
+
+        def false_alarm ():
+            product_entry.destroy()
+            detect_colour(self.product_info_entry, self.colour_count)
+
+        def submit_json ():
+            object_desc = {}
+            object_desc["name"] = e1.get()
+            object_desc["age"] = int(e2.get())
+            object_desc["origin"] = e3.get()
+            object_desc["sales"] = str(self.colour_count)
+            object_desc["timestamp"] = time.time()
+            print(object_desc)
+            send_data(object_desc)
+            
+            product_entry.destroy()
+            detect_colour(self.product_info_entry, self.colour_count)
+            
+            
         product_entry = Tk()
         product_entry.geometry(str(int(0.3*self.width))+"x"+str(int(0.3*self.height)))
         product_entry.title("Product Info Page")
@@ -67,8 +89,11 @@ class app():
         e2.place(relx=0.5,rely=0.3)
         e3.place(relx=0.5,rely=0.4)
 
-        Sub = Button(product_entry, text="Submit", command=hello)
+        Sub = Button(product_entry, text="Submit", command=submit_json)
         Sub.place(relx=0.5,rely=0.7)
+
+        fp = Button(product_entry, text="False Positive", command=false_alarm)
+        fp.place(relx=0.5,rely=0.8)
         
         product_entry.mainloop()
 
@@ -83,15 +108,22 @@ class app():
         product_name = Entry(customer_page)
         product_name.place(relx=0.5, rely=0.25, anchor=CENTER)
 
-        submit_button = Button(customer_page, text="Submit", command=hello)
+        self.disp_info = Text(customer_page, height=int(0.5*self.app_length), width=self.app_width, font=("Helvetica", 32))
+        self.disp_info.place(relx=0,rely=0.5)
+
+        submit_button = Button(customer_page, text="Submit", command=lambda:(self.Sub_func(product_name.get())))
         submit_button.place(relx=0.5, rely=0.320, anchor=CENTER)
 
-        disp_info = Text(customer_page, height=int(0.5*self.app_length), width=self.app_width)
-        disp_info.place(relx=0,rely=0.5)
-
-        disp_info.configure(state="disabled")
-
         customer_page.mainloop()
+
+    def Sub_func(self, name):
+        
+        self.data = get_data()
+        for i in self.data:
+            if i["name"] == name:
+                self.disp_info.insert(END,"Name : "+i["name"]+"\n")
+                self.disp_info.insert(END,"Origin : "+i["origin"]+"\n")
+        self.disp_info.configure(state="disabled")
 
     def create(self):
         menubar = Menu(self.root)  

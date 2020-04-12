@@ -5,11 +5,11 @@ import json
 import os
 import time
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '<your credentials json file>'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'Market-Analysis-App-4af4375d5e0d.json'
 
 def send_data(data):
-    project_id = "<project id>" # enter your project id here
-    topic_name = "<topicname>" # enter the name of the topic that you created
+    project_id = "tonal-works-273718" # enter your project id here
+    topic_name = "raspicam" # enter the name of the topic that you created
 
     publisher = pubsub_v1.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_name)
@@ -42,7 +42,7 @@ def send_data(data):
 def get_data():
     client = bigquery.Client()
     QUERY = (
-    '<your SQL query>')
+    'SELECT * FROM `tonal-works-273718.raspicam.sales_data` LIMIT 1000')
     query_job = client.query(QUERY)  # API request
     rows = query_job.result()  # Waits for query to finish
     rows = list(rows)
