@@ -1,4 +1,4 @@
-import Final_pi
+import detect_colour_func
 import cv2
 
 def detect_colour(form_func, countvar):
@@ -9,7 +9,7 @@ def detect_colour(form_func, countvar):
     while 1:
         print(i)
         print("prev : ", ls_prev)
-        val,ls=Final_pi.GetValues()
+        val,ls=detect_colour_func.GetValues()
         print("ls : ",ls)
         if ls == ls_prev or i==0:
             print("no change")

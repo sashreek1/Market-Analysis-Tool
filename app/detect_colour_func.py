@@ -40,8 +40,8 @@ def GetValues():
         font = cv2.FONT_HERSHEY_SIMPLEX
 
         #blue
-        low_blue=np.array([85,121,86])
-        high_blue=np.array([119,255,255])
+        low_blue=np.array([80,62,0])
+        high_blue=np.array([179,255,255])
         mask1=cv2.inRange(hsv,low_blue,high_blue)
         blur1=cv2.GaussianBlur(mask1,(15,15),0)
         contours1,_=cv2.findContours(blur1,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
@@ -58,35 +58,12 @@ def GetValues():
                 cv2.drawContours(frame,[approx],0,(255,0,0),3)
                 cv2.putText(frame,str(c_blue),(x,y), font, 2,(255,0,0),2,cv2.LINE_AA)
         cv2.putText(frame,'B='+str(c_blue),(50,50), font, 1,(255,0,0),2,cv2.LINE_AA)
-        my_inventory["blue"]=c_blue    
-
-
-        #Red
-        low_red=np.array([131,92,83])
-        high_red=np.array([179,255,255])
-        mask2=cv2.inRange(hsv,low_red,high_red)
-        blur2=cv2.GaussianBlur(mask2,(15,15),0)
-        contours2,_=cv2.findContours(blur2,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
-        c_red=0
-        
-        for contour2 in contours2:
-            area2=cv2.contourArea(contour2)
-            
-            if (area2>area_low and area2<area_high):
-                approx = cv2.approxPolyDP(contour2, 0.009 * cv2.arcLength(contour2, True), True) 
-                n=approx.ravel()
-                x=n[0]
-                y=n[1]
-                c_red+=1
-                cv2.drawContours(frame,[approx],0,(0,0,255),3)
-                cv2.putText(frame,str(c_red),(x,y), font, 2,(0,0,255),2,cv2.LINE_AA)
-        cv2.putText(frame,'R='+str(c_red),(50,80), font, 1,(0,0,255),2,cv2.LINE_AA)
-        my_inventory["red"]=c_red    
+        my_inventory["blue"]=c_blue      
        
         #Green
             
-        low_green=np.array([61,89,121])
-        high_green=np.array([87,255,255])
+        low_green=np.array([44,96,0])
+        high_green=np.array([93,255,255])
         mask3=cv2.inRange(hsv,low_green,high_green)
         blur3=cv2.GaussianBlur(mask3,(15,15),0)
         contours3,_=cv2.findContours(blur3,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
@@ -108,8 +85,8 @@ def GetValues():
 
         #orange
         
-        low_or=np.array([0,89,99])
-        high_or=np.array([11,188,201])
+        low_or=np.array([0,60,44])
+        high_or=np.array([17,255,244])
         mask4=cv2.inRange(hsv,low_or,high_or)
         blur4=cv2.GaussianBlur(mask4,(15,15),0)
         contours4,_=cv2.findContours(blur4,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
@@ -130,8 +107,8 @@ def GetValues():
        
         #yellow
         
-        low_ye=np.array([30,61,103])
-        high_ye=np.array([61,255,255])
+        low_ye=np.array([18,125,68])
+        high_ye=np.array([34,255,255])
         mask5=cv2.inRange(hsv,low_ye,high_ye)
         blur5=cv2.GaussianBlur(mask5,(15,15),0)
         contours5,_=cv2.findContours(blur5,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)

@@ -5,12 +5,7 @@ import time
 from detect_colours import detect_colour
 from sendmsg import send_data
 from sendmsg import get_data
-#import graphing
-
-def hello():  
-    """Place holder function"""
-    print("hello!")
-
+from graphing import get_plot
 
 class app():
     """docstring for app"""
@@ -44,7 +39,7 @@ class app():
         canvas.create_line(0, 0.375*self.app_length, self.app_width, 0.375*self.app_length)  
         canvas.pack(fill = BOTH, expand = True)
         
-        b = Button(analytics_page,text="Get Graphs", command=hello)
+        b = Button(analytics_page,text="Get Graphs", command= lambda: get_plot(get_data()))
         b.place(relx=0.5, rely=0.425, anchor=CENTER)
 
         button_desc_b = Label(analytics_page, text="Select this button to get a plot of the current sales of the objects in the shelf.")
@@ -119,12 +114,13 @@ class app():
         customer_page.mainloop()
 
     def Sub_func(self, name):
-        
+        self.disp_info.configure(state="normal")
+        self.disp_info.delete('1.0', END)
         self.data = get_data()
         for i in self.data:
-            if i["name"] == name:
-                self.disp_info.insert(END,"Name : "+i["name"]+"\n")
-                self.disp_info.insert(END,"Origin : "+i["origin"]+"\n")
+            if i[1] == name:
+                self.disp_info.insert(END,"Name : "+i[1]+"\n")
+                self.disp_info.insert(END,"Origin : "+i[3]+"\n")
         self.disp_info.configure(state="disabled")
 
     def create(self):
