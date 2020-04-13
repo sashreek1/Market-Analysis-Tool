@@ -5,6 +5,7 @@ import time
 from detect_colours import detect_colour
 from sendmsg import send_data
 from sendmsg import get_data
+#import graphing
 
 def hello():  
     """Place holder function"""
@@ -25,6 +26,7 @@ class app():
         self.create()  
 
     def Analytics_page(self):
+        
         analytics_page = Tk()
         analytics_page.geometry(str(int(0.5*self.width))+"x"+str(int(0.5*self.height)))
         analytics_page.title("Analytcis Page")

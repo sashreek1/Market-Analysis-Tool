@@ -46,6 +46,8 @@ def get_data():
     query_job = client.query(QUERY)  # API request
     rows = query_job.result()  # Waits for query to finish
     rows = list(rows)
-    
+    for i in range(len(rows)) :
+        rows[i] = list(rows[i])
+        rows[i][0] = rows[i][0].strftime("%m/%d/%Y, %H:%M:%S")
+        
     return rows
-
