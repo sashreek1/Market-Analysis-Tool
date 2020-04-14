@@ -21,13 +21,13 @@ time.sleep(0.1)
 
 
 #initialization
-c_blue=c_red=c_green=c_orange=c_yellow=0
+c_blue=c_green=c_orange=c_yellow=0
 
 #update these 2 values to change the range of size of the object being detected
 area_low=resx*resy/100
 area_high=20000
 def GetValues():
-    my_inventory= {'blue': 0, 'red': 0,'green': 0, 'orange': 0,'yellow': 0}
+    my_inventory= {'blue': 0,'green': 0, 'orange': 0,'yellow': 0}
     
     # capture frames from the camera
     for img in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):

@@ -2,13 +2,13 @@ from tkinter import *
 from tkinter.ttk import *
 import tkinter.font as tkFont
 import time
-from detect_colours import detect_colour
+from cv.detect_colours import detect_colour
 from sendmsg import send_data
 from sendmsg import get_data
 from graphing import get_plot
+import cv.bought as bought
 
 class app():
-    """docstring for app"""
     def __init__(self, root):
         self.root = root
         self.height = self.root.winfo_screenheight() 
@@ -63,6 +63,7 @@ class app():
             object_desc["origin"] = e3.get()
             object_desc["sales"] = str(self.colour_count)
             object_desc["timestamp"] = time.time()
+            object_desc["bought"] = str(bought.bought)
             print(object_desc)
             send_data(object_desc)
             

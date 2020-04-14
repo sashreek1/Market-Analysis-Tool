@@ -6,7 +6,6 @@ from pandas.plotting import register_matplotlib_converters
     
 def get_plot(list1):
     
-    print(list1)
     age_list=[]
     age_list1=[]
     product_list=[]
@@ -57,7 +56,6 @@ def get_plot(list1):
         age_list.append(str(i)+"to"+str(i+10))
     series = pd.Series(num_per_age,index=age_list, name='age distribution')
     series.plot.pie(figsize=(6, 6))
-    plt.show()
     
     for row in list1:
         blue.append(eval(row[4])["blue"])
@@ -70,17 +68,6 @@ def get_plot(list1):
         orange_sum = sum(orange)       
     df=pd.DataFrame({'blue': [blue_sum],'green': [green_sum],'yellow': [yellow_sum],'orange': [orange_sum]})
     df.plot(kind='bar',color=['b','g','r','y'])
-    plt.show()
-    
-    for x in list1:
-        temp1=x[1]
-        temp2=x[2]
-        temp3=str(temp1)+str(temp2)
-        sales_and_age.append(temp3)
-    sales_and_age1= dict(Counter(sales_and_age))
-    df=pd.DataFrame(sales_and_age1, index=['sales vs age'])
-    df.plot(kind='bar')
-    plt.show()
     
     register_matplotlib_converters()
     timestamp_list = []
@@ -88,10 +75,13 @@ def get_plot(list1):
         timestamp_list.append(datetime.strptime(row[0],"%m/%d/%Y, %H:%M:%S"))
     df = pd.DataFrame({'timestamp_list': timestamp_list,'blue': blue,'green': green,'yellow': yellow,'orange': orange})
 
-    plt.plot(timestamp_list,blue,color="blue")
-    plt.plot(timestamp_list,green,color="green")
-    plt.plot(timestamp_list,yellow,color="yellow")
-    plt.plot(timestamp_list,orange,color="orange")
+    fig, axs = plt.subplots(2, 2)
+    plt.figure(figsize=(7,7))
+    
+    df.plot(kind='line',x='timestamp_list',y='blue',color="blue",ax=axs[0,0])
+    df.plot(kind='line',x='timestamp_list',y='green',color="green",ax=axs[0,1])
+    df.plot(kind='line',x='timestamp_list',y='yellow',color="yellow",ax=axs[1,0])
+    df.plot(kind='line',x='timestamp_list',y='orange',color="orange",ax=axs[1,1])
 
     plt.show()
         
