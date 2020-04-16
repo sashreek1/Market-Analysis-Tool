@@ -20,31 +20,31 @@ def get_plot(data):
             row[2]='0to10'
             num_per_age[0]+=1
         elif(row[2]>10 and row[2]<=20):
-            row[2]='10to20'
+            
             num_per_age[1]+=1
         elif(row[2]>20 and row[2]<=30):
-            row[2]='20to30'
+           
             num_per_age[2]+=1
         elif(row[2]>30 and row[2]<=40):
-            row[2]='30to40'
+            
             num_per_age[3]+=1
         elif(row[2]>40 and row[2]<=50):
-            row[2]='40to50'
+            
             num_per_age[4]+=1
         elif(row[2]>50 and row[2]<=60):
-            row[2]='50to60'
+            
             num_per_age[5]+=1
         elif(row[2]>60 and row[2]<=70):
-            row[2]='60to70'
+            
             num_per_age[6]+=1
         elif(row[2]>70 and row[2]<=80):
-            row[2]='70to80'
+            
             num_per_age[7]+=1
         elif(row[2]>80 and row[2]<=90):
-            row[2]='80to90'
+            
             num_per_age[8]+=1
         else:
-            row[2]='above90'
+            
             num_per_age[9]+=1
             
     for i in range(0,100,10):
